@@ -1,0 +1,158 @@
+@import './../../.meteor/local/build/programs/server/assets/packages/reywood_bootstrap3-sass/_bootstrap';
+@import './../../.meteor/local/build/programs/server/assets/packages/reywood_font-awesome-sass/font-awesome';
+@import './utils';
+$action-width: 15em;
+$action-height: 2em;
+$action-to-do-background-color: rgb(238, 180, 38);
+$action-in-progress-background-color: rgb(238, 180, 38);
+$action-done-background-color: rgb(238, 180, 38);
+body {
+    font-size: 10px;
+    background-color: rgb(35, 35, 35);
+    font-family: Helvetica;
+    font-variant: normal;
+    font-weight: 100;
+    @include user-select(none);
+}
+
+.main {
+    @extend .container;
+}
+
+.board {
+    .status-item {
+        @extend .row;
+        .title {
+            font-variant: regular;
+            text-transform: capitalize;
+            font-size: 5em;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            letter-spacing: 1em;
+            margin-right: -1em; // to remove the space on the last caracter
+            margin-top: 1em;
+        }
+        .activities-list {
+            width: 100%;
+            text-align: center;
+            hr {
+                width: 75%;
+                margin-top: 3em;
+            }
+            .activity {
+                vertical-align: top;
+                display: inline-block;
+                position: relative;
+                width: $action-width;
+                @include border-radius(5px);
+                font-family: Helvetica;
+                font-variant: normal;
+                font-weight: 100;
+                margin: 1.5em 1em;
+                .owner {
+                    text-align: center;
+                    vertical-align: middle;
+                    padding: 0.5em 0em;
+                    font-size: 2em;
+                }
+                .description {
+                    * {
+                        display: block;
+                        text-align: center;
+                        padding: 0.5em 0.5em;
+                        font-size: 1.5em;
+                        font-style: italic;
+                    }
+                    .edited {
+                        background-color: transparent;
+                        outline: none;
+                        resize: none;
+                        overflow: auto;
+                    }
+                }
+                .action {
+                    width: 0;
+                    height: $action-height;
+                    position: absolute;
+                    left: $action-width*0.03;
+                    border-style: solid;
+                    @include animation-fill-mode(forwards);
+                    // @include transition(all 1s linear);
+                    &.backward {
+                        top: -$action-height+0.04;
+                        border-width: 0 $action-width/2.1 0 $action-width/2.1;
+                        &:hover {
+                            @include animation-name(open-backward);
+                            @include animation-duration(1);
+                        }
+                    }
+                    &.forward {
+                        border-width: 0 $action-width/2.1 0 $action-width/2.1;
+                        border-color: $action-done-background-color transparent transparent transparent;
+                        &:hover {
+                            @include animation-name(open-forward);
+                            @include animation-duration(1);
+                        }
+                    }
+                }
+            }
+        }
+        &.status-to-do .activity {
+            background-color: $action-to-do-background-color;
+            .action.forward {
+                border-color: $action-in-progress-background-color transparent transparent transparent;
+            }
+        }
+        &.status-in-progress .activity {
+            background-color: $action-in-progress-background-color;
+            .action.backward {
+                border-color: transparent transparent $action-to-do-background-color transparent;
+            }
+            .action.forward {
+                border-color: $action-done-background-color transparent transparent transparent;
+            }
+        }
+        &.status-done .activity {
+            background-color: $action-done-background-color;
+            .action.backward {
+                border-color: transparent transparent $action-in-progress-background-color transparent;
+            }
+        }
+    }
+}
+
+@-webkit-keyframes open-backward {
+    0% {
+        border-width: 0 $action-width/2.1 0 $action-width/2.1;
+    }
+    100% {
+        border-width: 0 $action-width/2.1 $action-height $action-width/2.1;
+    }
+}
+
+@keyframes open-backward {
+    0% {
+        border-width: 0 $action-width/2.1 0 $action-width/2.1;
+    }
+    100% {
+        border-width: 0 $action-width/2.1 $action-height $action-width/2.1;
+    }
+}
+
+@-webkit-keyframes open-forward {
+    0% {
+        border-width: 0 $action-width/2.1 0 $action-width/2.1;
+    }
+    100% {
+        border-width: $action-height $action-width/2.1 0 $action-width/2.1;
+    }
+}
+
+@keyframes open-forward {
+    0% {
+        border-width: 0 $action-width/2.1 0 $action-width/2.1;
+    }
+    100% {
+        border-width: $action-height $action-width/2.1 0 $action-width/2.1;
+    }
+}

@@ -5,17 +5,18 @@
 # but you can also edit it by hand.
 
 meteor-platform
-twbs:bootstrap
 underscore
 iron:router
 sacha:spin
 ian:accounts-ui-bootstrap-3
 accounts-password
-meteorhacks:aggregate
-copleykj:jquery-autosize
 fastclick
-fortawesome:fontawesome
 natestrauser:animate-css
-twbs:bootstrap-noglyph
 babrahams:editable-text
-mrt:moment
+fourseven:scss
+reywood:bootstrap3-sass
+reywood:font-awesome-sass
+momentjs:moment
+frozeman:animation-helper-velocity
+percolate:momentum
+appmill:animation-hooks

@@ -1,0 +1,62 @@
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin border-image($attributes) {
+    -webkit-border-image: $attributes;
+    -moz-border-image: $attributes;
+    -ms-border-image: $attributes;
+    border-image: $attributes;
+}
+
+@mixin transition($attributes) {
+    -webkit-transition: $attributes;
+    -moz-transition: $attributes;
+    -ms-transition: $attributes;
+    transition: $attributes;
+}
+
+@mixin transform($attributes) {
+    -webkit-transform: $attributes;
+    -moz-transform: $attributes;
+    -ms-transform: $attributes;
+    transform: $attributes;
+}
+
+@mixin user-select($attributes) {
+    -webkit-touch-callout: $attributes;
+    -webkit-user-select: $attributes;
+    -moz-user-select: $attributes;
+    -ms-user-select: $attributes;
+    user-select: $attributes;
+}
+
+@mixin animation($attributes) {
+    -webkit-animation: $attributes;
+    animation: $attributes;
+}
+
+@mixin animation-name($attributes) {
+    -webkit-animation-name: $attributes;
+    -moz-animation-name: $attributes;
+    -ms-animation-name: $attributes;
+    animation-name: $attributes;
+}
+
+@mixin animation-duration($attributes) {
+    -webkit-animation-duration: $attributes;
+    -moz-animation-duration: $attributes;
+    -ms-animation-duration: $attributes;
+    animation-duration: $attributes;
+}
+
+@mixin animation-fill-mode($attributes) {
+    -webkit-animation-fill-mode: $attributes;
+    -moz-animation-fill-mode: $attributes;
+    -ms-animation-fill-mode: $attributes;
+    animation-fill-mode: $attributes;
+}
+

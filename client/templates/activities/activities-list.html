@@ -1,0 +1,10 @@
+<template name="activitiesList">
+    <div class="activities-list">
+        {{#each activities}}
+            {{> activityItem}}
+        {{/each}}
+        {{#unless isDone}}
+        	<hr>
+        {{/unless}}
+    </div>
+</template>
