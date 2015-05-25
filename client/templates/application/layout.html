@@ -1,5 +1,13 @@
 <template name="layout">
-    <div id="main">
-        {{> yield}}
+    <div class="site">
+        <div class="header">
+            {{> header}}
+        </div>
+        <div class="inner">
+            {{> yield}}
+        </div>
+        <div class="footer">
+            {{> footer}}
+        </div>
     </div>
 </template>

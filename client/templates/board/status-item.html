@@ -3,6 +3,14 @@
         <div class="title">
             <span>{{status}}</span>
         </div>
+        <div class="detail">
+            {{#if isInProgress}}
+            	{{> clock}}
+            {{/if}}
+            {{#if isDone}}
+            	{{> period}}
+            {{/if}}
+        </div>
         {{> activitiesList}}
     </section>
 </template>

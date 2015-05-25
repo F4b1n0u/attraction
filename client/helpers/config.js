@@ -1,3 +1,3 @@
 Accounts.ui.config({
-  passwordSignupFields: 'EMAIL_ONLY'
+  passwordSignupFields: 'USERNAME_ONLY'
 });

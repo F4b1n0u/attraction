@@ -1,0 +1,22 @@
+<template name="activityItem">
+    <div id="{{_id}}" class="activity">
+        {{#if isTheOwner}}
+            {{#unless isToDo}}
+            	<div class="action backward"></div>
+            {{/unless}}
+        {{/if}}
+        <div class="owner">{{owner.username}}</div>
+        <div class="description">
+            {{#if isTheOwner}}
+                {{> editableText textarea=true class="editable" inputClass="edited" collection="activities" field="description" eventType="dblclick" placeholder="description"}}
+            {{else}}
+                <span>{{descriptionTest}}</span>
+            {{/if}}
+        </div>
+        {{#if isTheOwner}}
+            {{#unless isDone}}
+            	<div class="action forward"></div>
+            {{/unless}}
+        {{/if}}
+    </div>
+</template>

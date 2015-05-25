@@ -1,3 +1,12 @@
+Template.activitiesList.onCreated(function() {
+    Session.setDefault('to-do-Period', null);
+    Session.setDefault('in-progress-period', null);
+    Session.setDefault('done-period', {
+        value: 5,
+        unit: 'secondes'
+    });
+})
+
 Template.activitiesList.onRendered(function() {
     var $activitiesList = this.find('.activities-list');
     $activitiesList._uihooks = {
@@ -10,12 +19,6 @@ Template.activitiesList.onRendered(function() {
             var previousStatus = activity.status.previous;
 
             var animationName = 'fadeIn';
-
-            if ((newstatus === 'to-do' && previousStatus === 'in-progress') || (newstatus === 'in-progress' && previousStatus === 'done')) {
-                animationName += 'Up';
-            } else if ((newstatus === 'in-progress' && previousStatus === 'to-do') || (newstatus === 'done' && previousStatus === 'in-progress')) {
-                animationName += 'Down';
-            }
 
             $(node).addClass('animated');
             $(node).addClass(animationName).insertBefore(next);
@@ -43,7 +46,7 @@ Template.activitiesList.onRendered(function() {
             } else if ((newstatus === 'in-progress' && previousStatus === 'to-do') || (newstatus === 'done' && previousStatus === 'in-progress')) {
                 animationName += 'Down';
             }
-            
+
             $(node).addClass('animated');
             $(node).addClass(animationName).insertBefore(next);
 
@@ -55,24 +58,8 @@ Template.activitiesList.onRendered(function() {
 });
 Template.activitiesList.helpers({
     activities: function() {
-        var period;
-        switch (this.status) {
-            case 'to-do':
-                period = null;
-                break;
-            case 'in-progress':
-                period = null;
-                break;
-            case 'done':
-                period = Session.get('donePeriod') | 0;
-                break;
-            default:
-                period = 0;
-                break
-        }
-        return Activities.getByStatusAndPeriod(this.status, period);
-    },
-    isDone: function() {
-        return this.status == 'done'
+        console.log(this.status + '-period');
+        console.log(Session.get(this.status + '-period'));
+        return Activities.getByStatusAndPeriod(this.status, Session.get(this.status + '-period'));
     }
 });

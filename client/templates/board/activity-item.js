@@ -1,21 +1,6 @@
-Template.activityItem.onRendered(function() {
-
-    var $activity = $('#' + this.data._id);
-    console.log('setup $activity', $activity);
-    var $editable = $('#' + this.data._id + ' .editable');
-    console.log('setup $editable', $editable);
-    $editable.change(function() {
-        $activity.addClass('animated');
-        $activity.addClass('pulse');
-
-        $activity.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function() {
-            $activity.removeClass('animated');
-            $activity.removeClass('pulse');
-        });
-    });
-    // change() trigger on the callback define for {{editableText}}
-    // done at the dom level to be sure it appears also on the client who didn't initiate the change
-});
+Template.activityItem.onCreated(function() {
+    Session.setDefault('#'+this._id, '');
+})
 
 Template.activityItem.helpers({
     isToDo: function() {
@@ -23,6 +8,22 @@ Template.activityItem.helpers({
     },
     isDone: function() {
         return this.status.label == 'done'
+    },
+    isTheOwner: function() {
+        return this.owner._id === Meteor.userId();
+    },
+    descriptionTest: function() {
+        var $activity = $('#' + this._id + '.activity');
+        var animation = 'swing';
+        $activity.addClass('animated');
+        $activity.addClass(animation);
+
+        $activity.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function() {
+            $activity.removeClass('animated');
+            $activity.addClass(animation);
+        });
+
+        return this.description;
     }
 });
 

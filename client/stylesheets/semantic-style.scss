@@ -1,0 +1,150 @@
+@import './../../.meteor/local/build/programs/server/assets/packages/reywood_bootstrap3-sass/_bootstrap';
+@import 'compass/reset';
+@import 'compass/css3';
+
+@import 'bootstrap-adapter-style';
+
+$action-width: 15em;
+$action-height: 2em;
+$action-to-do-background-color: rgb(255, 158, 41);
+$action-in-progress-background-color: rgb(238, 180, 38);
+$action-done-background-color: rgb(232, 239, 50);
+$activity-text-color: rgb(35, 35, 35);
+$page-background-color: rgb(35, 35, 35);
+$title-color: rgb(255, 255, 255);
+body {
+    font-size: 10px;
+    background-color: $page-background-color;
+    font-family: Helvetica;
+    font-variant: normal;
+    font-weight: 100;
+    @include user-select(none);
+}
+
+.sign-in-up {
+    &.button {
+        font-size: 0.5em;
+    }
+}
+
+.board {
+    .status-item {
+        @extend .row;
+        color: $title-color;
+        font-variant: regular;
+        text-align: center;
+        .title {
+            text-transform: capitalize;
+            font-size: 5em;
+            letter-spacing: 1em;
+            margin-right: -1em; // to remove the space on the last caracter
+            margin-top: 1em;
+        }
+        .detail {
+            font-size: 1.5em;
+            letter-spacing: 0.5em;
+            margin-right: -0.5em; // to remove the space on the last caracter
+            margin-top: 1em;
+        }
+        .activities-list {
+            width: 100%;
+            text-align: center;
+            hr {
+                width: 75%;
+                margin-top: 3em;
+            }
+            .activity {
+                vertical-align: top;
+                display: inline-block;
+                position: relative;
+                width: $action-width;
+                @include border-radius(5px, 5px);
+                font-family: Helvetica;
+                font-variant: normal;
+                font-weight: 100;
+                color: $activity-text-color;
+                margin: 1.5em 1em;
+                .owner {
+                    text-align: center;
+                    vertical-align: middle;
+                    padding: 0.5em 0em;
+                    font-size: 2em;
+                }
+                .description {
+                    * {
+                        display: block;
+                        text-align: center;
+                        padding: 0.5em 0.5em;
+                        font-size: 1.5em;
+                        font-style: italic;
+                    }
+                    .edited {
+                        background-color: transparent;
+                        outline: none;
+                        resize: none;
+                        overflow: auto;
+                    }
+                }
+                .action {
+                    width: 0;
+                    height: $action-height;
+                    position: absolute;
+                    left: $action-width*0.03;
+                    border-style: solid;
+                    -webkit-transition: border-width 0.1s ease;
+                    transition: border-width 0.1s ease;
+                    &:hover {
+                        -webkit-transition-duration: 0.2s;
+                        transition-duration: 0.2s;
+                    }
+                    &.backward {
+                        top: -$action-height+0.04;
+                        border-width: 0 $action-width/2.1 0 $action-width/2.1;
+                        &:hover {
+                            border-width: 0 $action-width/2.1 $action-height $action-width/2.1;
+                        }
+                    }
+                    &.forward {
+                        border-width: 0 $action-width/2.1 0 $action-width/2.1;
+                        &:hover {
+                            border-width: $action-height $action-width/2.1 0 $action-width/2.1;
+                        }
+                    }
+                }
+            }
+        }
+        &.status-to-do .activity {
+            background: $action-to-do-background-color;
+            background: -moz-linear-gradient(top, $action-to-do-background-color 0%, $action-in-progress-background-color 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $action-to-do-background-color), color-stop(100%, $action-in-progress-background-color));
+            background: -webkit-linear-gradient(top, $action-to-do-background-color 0%, $action-in-progress-background-color 100%);
+            background: -o-linear-gradient(top, $action-to-do-background-color 0%, $action-in-progress-background-color 100%);
+            background: -ms-linear-gradient(top, $action-to-do-background-color 0%, $action-in-progress-background-color 100%);
+            background: linear-gradient(to bottom, $action-to-do-background-color 0%, $action-in-progress-background-color 100%);
+            .action.forward {
+                border-color: $action-in-progress-background-color transparent transparent transparent;
+            }
+        }
+        &.status-in-progress .activity {
+            background: $action-in-progress-background-color;
+            background: -moz-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $action-in-progress-background-color), color-stop(100%, $action-done-background-color));
+            background: -webkit-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
+            background: -o-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
+            background: -ms-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
+            background: linear-gradient(to bottom, $action-in-progress-background-color 0%, $action-done-background-color 100%);
+            .action.backward {
+                border-color: transparent transparent $action-in-progress-background-color transparent;
+            }
+            .action.forward {
+                border-color: $action-done-background-color transparent transparent transparent;
+            }
+        }
+        &.status-done .activity {
+            background-color: $action-done-background-color;
+            .action.backward {
+                border-color: transparent transparent $action-done-background-color transparent;
+            }
+        }
+    }
+}
