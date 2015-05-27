@@ -1,7 +1,3 @@
-Template.activityItem.onCreated(function() {
-    Session.setDefault('#'+this._id, '');
-})
-
 Template.activityItem.helpers({
     isToDo: function() {
         return this.status.label == 'to-do'
@@ -12,7 +8,7 @@ Template.activityItem.helpers({
     isTheOwner: function() {
         return this.owner._id === Meteor.userId();
     },
-    descriptionTest: function() {
+    description: function() {
         var $activity = $('#' + this._id + '.activity');
         var animation = 'swing';
         $activity.addClass('animated');
@@ -20,7 +16,7 @@ Template.activityItem.helpers({
 
         $activity.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function() {
             $activity.removeClass('animated');
-            $activity.addClass(animation);
+            $activity.removeClass(animation);
         });
 
         return this.description;
@@ -29,7 +25,6 @@ Template.activityItem.helpers({
 
 Template.activityItem.events({
     'click .action.forward': function(evt, tmpl) {
-        // TODO add a wait to lets the animation appear
         var activity = tmpl.data;
 
         activity.status.previous = activity.status.label;
@@ -49,8 +44,6 @@ Template.activityItem.events({
         });
     },
     'click .action.backward': function(evt, tmpl) {
-        // TODO add a wait to lets the animation appear
-        console.log('click .action.forward');
         var activity = tmpl.data;
 
         activity.status.previous = activity.status.label;

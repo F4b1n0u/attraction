@@ -1,20 +1,18 @@
 Template.activitiesList.onCreated(function() {
     Session.setDefault('to-do-Period', null);
     Session.setDefault('in-progress-period', null);
-    Session.setDefault('done-period', {
-        value: 5,
-        unit: 'secondes'
-    });
+    Session.setDefault('done-period', Periods.values[0]);
 })
 
 Template.activitiesList.onRendered(function() {
-    var $activitiesList = this.find('.activities-list');
-    $activitiesList._uihooks = {
+    var activitiesList = this.find('.activities-list');
+    activitiesList._uihooks = {
         insertElement: function(node, next) {
             var activityId = $(node).attr('id');
             var activity = Activities.findOne({
                 _id: activityId
             });
+            console.log(activity);
             var newstatus = activity.status.label;
             var previousStatus = activity.status.previous;
 
@@ -28,7 +26,7 @@ Template.activitiesList.onRendered(function() {
                 $(node).removeClass(animationName).insertBefore(next);
             });
         },
-        moveDOMElement: function(node, next) {
+        moveElement: function(node, next) {
             console.log('moveElement');
         },
         removeElement: function(node, next) {
@@ -58,8 +56,6 @@ Template.activitiesList.onRendered(function() {
 });
 Template.activitiesList.helpers({
     activities: function() {
-        console.log(this.status + '-period');
-        console.log(Session.get(this.status + '-period'));
         return Activities.getByStatusAndPeriod(this.status, Session.get(this.status + '-period'));
     }
 });

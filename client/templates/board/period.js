@@ -2,11 +2,11 @@ Periods = {
     indexes: [0, 1, 2, 3, 4, 5, 6],
     labels: ['1 day', '2 days', '3 days', '4 days', '1 week', '2 weeks', '1 month'],
     values: [{
-        value: 10,
-        unit: 'seconds'
-    }, {
         value: 1,
-        unit: 'minutes'
+        unit: 'days'
+    }, {
+        value: 2,
+        unit: 'days'
     }, {
         value: 3,
         unit: 'days'
@@ -38,6 +38,5 @@ Template.period.onRendered(function() {
     });
     $slider.on('change', function(evt) {
         Session.set('done-period', Periods.values[evt.value.newValue]);
-        console.log('change', Session.get('done-period'));
     })
 });

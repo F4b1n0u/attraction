@@ -1,17 +1,19 @@
 Template.clock.onCreated(function() {
-    var dateFormated = moment().format('LLL')
-    console.log(dateFormated);
-    Session.set('now', dateFormated);
+    var format = 'LL HH:mm:ss';
+
+    var timeZone = Session.get('timeZone');
+    Session.set('now', moment.tz(timeZone).format(format));
     Meteor.setInterval(function() {
-        Session.set('now', dateFormated);
+        var timeZone = Session.get('timeZone');
+        Session.set('now', moment.tz(timeZone).format(format));
     }, 1000);
 });
 
 Template.clock.helpers({
-    time: function() {
+    now: function() {
         return Session.get('now');
     },
-    timezone: function() {
-
+    timeZone: function() {
+        return Session.get('timeZone');
     }
 });

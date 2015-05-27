@@ -1,9 +1,6 @@
 @import './../../.meteor/local/build/programs/server/assets/packages/reywood_bootstrap3-sass/_bootstrap';
 @import 'compass/reset';
 @import 'compass/css3';
-
-@import 'bootstrap-adapter-style';
-
 $action-width: 15em;
 $action-height: 2em;
 $action-to-do-background-color: rgb(255, 158, 41);
@@ -12,6 +9,8 @@ $action-done-background-color: rgb(232, 239, 50);
 $activity-text-color: rgb(35, 35, 35);
 $page-background-color: rgb(35, 35, 35);
 $title-color: rgb(255, 255, 255);
+$map-axis-selector-color: rgb(255, 158, 41);
+$map-axis-validator-color: rgb(35, 35, 35);
 body {
     font-size: 10px;
     background-color: $page-background-color;
@@ -21,9 +20,80 @@ body {
     @include user-select(none);
 }
 
-.sign-in-up {
-    &.button {
-        font-size: 0.5em;
+.welcome {
+    font-size: 9em;
+    color: $title-color;
+    text-align: center;
+}
+
+.profile {
+    .map {
+        margin: 0 auto;
+        max-width: 1024px;
+        padding: 40px;
+        .map-label {
+            line-height: 60px;
+            font-size: 24px;
+            margin: 0;
+            color: $title-color;
+            font-family: monospace;
+        }
+        .map-wrap {
+            background: $action-in-progress-background-color url(bg.png);
+            padding: 1px;
+            border-radius: 3px;
+            position: relative;
+        }
+        .map-inset {
+            padding-bottom: 50%;
+            background: url(world.png) 50% 50%;
+            -webkit-background-size: cover;
+            background-size: cover;
+            position: relative;
+            border-radius: 2px;
+            .map-axis {
+                position: absolute;
+                &.x {
+                    top: 0;
+                    bottom: 0;
+                    border-left: 1px solid $map-axis-selector-color;
+                    width: 0;
+                    -webkit-transition: left 50ms ease-out;
+                    transition: left 50ms ease-out;
+                    &.validator {
+                        -webkit-transition: left 100ms ease-out;
+                        transition: left 100ms ease-out;
+                        border-left: 1px solid $map-axis-validator-color;
+                    }
+                }
+                &.y {
+                    left: 0;
+                    right: 0;
+                    border-top: 1px solid $map-axis-selector-color;
+                    height: 0;
+                    -webkit-transition: top 50ms ease-out;
+                    transition: top 50ms ease-out;
+                    &.validator {
+                        -webkit-transition: top 100ms ease-out;
+                        transition: top 100ms ease-out;
+                        border-top: 1px solid $map-axis-validator-color;
+                    }
+                }
+            }
+            & span {
+                width: 6px;
+                height: 6px;
+                margin: -3px 0 0 -3px;
+                background: $page-background-color;
+                position: absolute;
+                border-radius: 5px;
+                border: 1px solid $title-color;
+                &.selected {
+                    width: 10px;
+                    height: 10px;
+                }
+            }
+        }
     }
 }
 
@@ -147,4 +217,86 @@ body {
             }
         }
     }
+}
+
+.logo {
+    position: relative;
+    margin-top: 0.5em;
+    margin-right: auto;
+    margin-left: auto;
+    width: 504px;
+    &:before {
+        content: url(logo-center.png);
+        position: relative;
+        margin: auto;
+    }
+    & .circle {
+        position: absolute;
+        top: 0;
+        right: 0;
+        -webkit-animation-name: rotating;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-delay: initial;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-direction: initial;
+        -webkit-animation-fill-mode: initial;
+        -webkit-animation-play-state: initial;
+    }
+    & .circle.inner {
+        content: url(logo-sphere-inner.png);
+        -webkit-animation-duration: 1.5s;
+    }
+    & .circle.middle {
+        content: url(logo-sphere-middle.png);
+        -webkit-animation-duration: 2s;
+    }
+    & .circle.external {
+        content: url(logo-sphere-outer.png);
+        -webkit-animation-duration: 2.5s;
+    }
+    & .circle.external:before {}
+    @-webkit-keyframes rotating {
+        from {
+            -ms-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        to {
+            -ms-transform: rotate(-360deg);
+            -moz-transform: rotate(-360deg);
+            -webkit-transform: rotate(-360deg);
+            -o-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+        }
+    }
+    @keyframes rotating {
+        from {
+            -ms-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        to {
+            -ms-transform: rotate(-360deg);
+            -moz-transform: rotate(-360deg);
+            -webkit-transform: rotate(-360deg);
+            -o-transform: rotate(-360deg);
+            transform: rotate(-360deg);
+        }
+    }
+    .rotating {
+        -webkit-animation: rotating 2s linear infinite;
+        -moz-animation: rotating 2s linear infinite;
+        -ms-animation: rotating 2s linear infinite;
+        -o-animation: rotating 2s linear infinite;
+        animation: rotating 2s linear infinite;
+    }
+}
+
+///////// OUT OF SEMANTIC ... thanks boostrap
+.nav {
+    font-size: 2em;
 }

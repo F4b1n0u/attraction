@@ -10,7 +10,7 @@
             {{#if isTheOwner}}
                 {{> editableText textarea=true class="editable" inputClass="edited" collection="activities" field="description" eventType="dblclick" placeholder="description"}}
             {{else}}
-                <span>{{descriptionTest}}</span>
+                <span>{{description}}</span>
             {{/if}}
         </div>
         {{#if isTheOwner}}
