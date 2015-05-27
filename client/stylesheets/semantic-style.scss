@@ -56,10 +56,12 @@ body {
                 &.x {
                     top: 0;
                     bottom: 0;
-                    border-left: 1px solid $map-axis-selector-color;
                     width: 0;
-                    -webkit-transition: left 50ms ease-out;
-                    transition: left 50ms ease-out;
+                    &.cursor {
+                        -webkit-transition: left 50ms ease-out;
+                        transition: left 50ms ease-out;
+                        border-left: 1px solid $map-axis-selector-color;
+                    }
                     &.validator {
                         -webkit-transition: left 100ms ease-out;
                         transition: left 100ms ease-out;
@@ -69,10 +71,12 @@ body {
                 &.y {
                     left: 0;
                     right: 0;
-                    border-top: 1px solid $map-axis-selector-color;
                     height: 0;
-                    -webkit-transition: top 50ms ease-out;
-                    transition: top 50ms ease-out;
+                    &.cursor {
+                        -webkit-transition: top 50ms ease-out;
+                        transition: top 50ms ease-out;
+                        border-top: 1px solid $map-axis-selector-color;
+                    }
                     &.validator {
                         -webkit-transition: top 100ms ease-out;
                         transition: top 100ms ease-out;
@@ -114,7 +118,11 @@ body {
             font-size: 1.5em;
             letter-spacing: 0.5em;
             margin-right: -0.5em; // to remove the space on the last caracter
-            margin-top: 1em;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            .period {
+                margin-bottom: 1.5em;
+            }
         }
         .activities-list {
             width: 100%;
@@ -126,7 +134,6 @@ body {
             .activity {
                 vertical-align: top;
                 display: inline-block;
-                position: relative;
                 width: $action-width;
                 @include border-radius(5px, 5px);
                 font-family: Helvetica;
@@ -299,4 +306,24 @@ body {
 ///////// OUT OF SEMANTIC ... thanks boostrap
 .nav {
     font-size: 2em;
+}
+
+.tooltip.top .tooltip-arrow {
+    top: 0;
+    border-width: 0px 5px 5px 5px;
+    border-bottom-color: #000;
+}
+
+.slider .tooltip.top {
+    margin-top: 21px;
+}
+
+.slider-track-high {
+    -webkit-transition: all 50ms ease-out;
+    transition: all 100ms ease;
+}
+
+.slider-handle {
+    -webkit-transition: left 50ms ease-out;
+    transition: all 100ms ease;
 }

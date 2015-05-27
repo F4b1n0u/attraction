@@ -8,8 +8,10 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="{{pathFor 'welcome'}}">Attraction</a>
-            <a class="navbar-brand" href="{{pathFor 'board'}}">Boards</a>
-            <a class="navbar-brand" href="{{pathFor 'profile'}}">Profile</a>
+            {{#if userConnected}}
+                <a class="navbar-brand" href="{{pathFor 'board'}}">Boards</a>
+                <a class="navbar-brand" href="{{pathFor 'profile'}}">Profile</a>
+            {{/if}}
         </div>
         <div class="collapse navbar-collapse" id="navigation">
             <ul class="nav navbar-nav navbar-right">

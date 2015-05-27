@@ -5011,8 +5011,12 @@ Template.map.onRendered(function() {
         $map.append($node);
 
         if (timeZone === center.name) {
-
             $node.addClass('validated');
+            var $axisXValidator = this.$('.map-axis.validator.x');
+            var $axisYValidator = this.$('.map-axis.validator.y');
+            $axisXValidator.css('left', center.x * 100 + '%');
+            $axisYValidator.css('top', center.y * 100 + '%');
+
         }
         center.dom = $node;
     }, this);
@@ -5021,8 +5025,8 @@ Template.map.onRendered(function() {
 Template.map.events({
     'click .map-inset': function(evt, tmpl) {
         evt.preventDefault();
-        var $axisX = tmpl.$('.map-axis.cursor.x');
-        var $axisY = tmpl.$('.map-axis.cursor.y');
+        var $axisXcursor = tmpl.$('.map-axis.cursor.x');
+        var $axisYcursor = tmpl.$('.map-axis.cursor.y');
         var $axisXValidator = tmpl.$('.map-axis.validator.x');
         var $axisYValidator = tmpl.$('.map-axis.validator.y');
         var $currentlyValidatedCenter = $('.map-inset span.validted');
@@ -5034,8 +5038,8 @@ Template.map.events({
         var $validatedCenter = $selectedCenter;
 
         var timeZone = $validatedCenter.attr('data-time-zone');
-        $axisXValidator.attr('style', $axisX.attr('style'));
-        $axisYValidator.attr('style', $axisY.attr('style'));
+        $axisXValidator.attr('style', $axisXcursor.attr('style'));
+        $axisYValidator.attr('style', $axisYcursor.attr('style'));
 
         if (timeZone) {
             Session.set('timeZone', timeZone);
