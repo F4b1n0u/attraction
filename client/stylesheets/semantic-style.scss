@@ -118,9 +118,8 @@ body {
             font-size: 1.5em;
             letter-spacing: 0.5em;
             margin-right: -0.5em; // to remove the space on the last caracter
-            margin-top: 0.5em;
-            margin-bottom: 0.5em;
-            .period {
+            margin-top: 1em;
+            & .period {
                 margin-bottom: 1.5em;
             }
         }
@@ -134,6 +133,7 @@ body {
             .activity {
                 vertical-align: top;
                 display: inline-block;
+                position: relative;
                 width: $action-width;
                 @include border-radius(5px, 5px);
                 font-family: Helvetica;
@@ -175,7 +175,7 @@ body {
                         transition-duration: 0.2s;
                     }
                     &.backward {
-                        top: -$action-height+0.04;
+                        top: -$action-height;
                         border-width: 0 $action-width/2.1 0 $action-width/2.1;
                         &:hover {
                             border-width: 0 $action-width/2.1 $action-height $action-width/2.1;
