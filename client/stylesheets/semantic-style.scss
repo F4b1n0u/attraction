@@ -1,4 +1,5 @@
 @import './../../.meteor/local/build/programs/server/assets/packages/reywood_bootstrap3-sass/_bootstrap';
+@import './../../.meteor/local/build/programs/server/assets/packages/reywood_font-awesome-sass/_font-awesome';
 @import 'compass/reset';
 @import 'compass/css3';
 $action-width: 15em;
@@ -11,6 +12,8 @@ $page-background-color: rgb(35, 35, 35);
 $title-color: rgb(255, 255, 255);
 $map-axis-selector-color: rgb(255, 158, 41);
 $map-axis-validator-color: rgb(35, 35, 35);
+$project-width: 80%;
+$project-height: 6em;
 body {
     font-size: 10px;
     background-color: $page-background-color;
@@ -101,6 +104,96 @@ body {
     }
 }
 
+.projects-list {
+    color: $title-color;
+    font-variant: regular;
+    text-align: center;
+    .title {
+        text-transform: capitalize;
+        font-size: 5em;
+        letter-spacing: 1em;
+        margin-right: -1em; // to remove the space on the last caracter
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+    .project {
+        position: relative;
+        display: block;
+        width: $project-width;
+        height: $project-height;
+        margin: 2em auto;
+        @include border-radius(5px, 5px);
+        font-family: Helvetica;
+        font-variant: normal;
+        font-weight: 100;
+        color: $activity-text-color;
+        background: $action-in-progress-background-color;
+        background: -moz-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $action-in-progress-background-color), color-stop(100%, $action-done-background-color));
+        background: -webkit-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
+        background: -o-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
+        background: -ms-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
+        background: linear-gradient(to bottom, $action-in-progress-background-color 0%, $action-done-background-color 100%);
+        .name {
+            line-height: $project-height / 3;
+            text-transform: capitalize;
+            font-size: $project-height / 2;
+            .edited {
+                text-transform: capitalize;
+                text-align: center;
+                background-color: transparent;
+                outline: none;
+                resize: none;
+                overflow: auto;
+            }
+        }
+        .participants {
+            position: absolute;
+            left: 10px;
+            line-height: $project-height / 2;
+            font-size: 2em;
+            .add-participant {
+                @extend .fa;
+                @extend .fa-user-plus;
+            }
+            .bubble {
+                top: 2.5em;
+                left: -2em;
+                position: absolute;
+                padding: 0px;
+                background: #FFFFFF;
+                -webkit-border-radius: 20px;
+                -moz-border-radius: 20px;
+                border-radius: 20px;
+                z-index: 1;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    border-style: solid;
+                    border-width: 0 12px 12px;
+                    border-color: #FFFFFF transparent;
+                    display: block;
+                    width: 0;
+                    z-index: 1;
+                    margin-left: -12px;
+                    top: -12px;
+                    left: 20%;
+                }
+                &>input {
+                    line-height: normal;
+                    background-color: transparent;
+                    outline: none;
+                    resize: none;
+                    overflow: auto;
+                    border: none;
+                    margin: 0 10px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
 .board {
     .status-item {
         @extend .row;
@@ -141,6 +234,18 @@ body {
                 font-weight: 100;
                 color: $activity-text-color;
                 margin: 1.5em 1em;
+                &.detail {
+                    -webkit-transition: all 0.5s ease;
+                    transition: all 0.5s ease;
+                    position: absolute;
+                    z-index: 1;
+                    left: 0;
+                    right: 0;
+                    margin-left: auto;
+                    margin-right: auto;
+                    width: 50%;
+                    height: 50%;
+                }
                 .owner {
                     text-align: center;
                     vertical-align: middle;

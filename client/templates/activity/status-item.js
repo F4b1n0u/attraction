@@ -5,13 +5,19 @@ Template.statusItem.helpers({
     isDone: function() {
         return this.status === 'done';
     }
-})
+});
+
 Template.statusItem.events({
     'dblclick .title': function(evt, tmpl) {
         evt.preventDefault();
+
         if (Meteor.user()) {
+            var projectId = Router.current().params._id;
+            var userId = Meteor.userId();
+            
             var activity = {
-                owner: Meteor.user(),
+                project: projectId,
+                owner: userId,
                 description: 'Please type a description',
                 status: {
                     label: tmpl.data.status,
@@ -19,10 +25,10 @@ Template.statusItem.events({
                 }
             };
 
-            Meteor.call('activityInsert', activity, function(error, result) {
+            Meteor.call('activityInsert', projectId, activity, function(error, result) {
                 if (error)
                     return alert(error.reason);
             });
         }
     }
-})
+});

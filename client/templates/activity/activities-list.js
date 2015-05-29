@@ -12,7 +12,6 @@ Template.activitiesList.onRendered(function() {
             var activity = Activities.findOne({
                 _id: activityId
             });
-            console.log(activity);
             var newstatus = activity.status.label;
             var previousStatus = activity.status.previous;
 
@@ -54,8 +53,13 @@ Template.activitiesList.onRendered(function() {
         }
     }
 });
+
 Template.activitiesList.helpers({
     activities: function() {
-        return Activities.getByStatusAndPeriod(this.status, Session.get(this.status + '-period'));
+        var projectId = Router.current().params._id;
+        var status = this.status;
+        var period = Session.get(this.status + '-period')
+        console.log(projectId, status, period);
+        return Activities.getByStatusAndPeriod(projectId, this.status, period);
     }
 });

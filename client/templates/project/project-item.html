@@ -1,0 +1,21 @@
+<template name="projectItem">
+    <div id="{{_id}}" class="project">
+        <span class="participants">
+	        {{#if isTheOwner}}
+	        	<i class="add-participant"></i>
+                <div class="bubble">
+                    <input type="text" placeholder="someone@site.com">
+                </div>
+	        {{/if}}
+	        
+	        {{amountOfParticipants}}&nbsp;participant(s)
+        </span>
+        <span class="name">
+            {{#if isTheOwner}}
+                {{> editableText textarea=true class="editable" inputClass="edited" collection="projects" field="name" eventType="dblclick" placeholder="name"}}
+            {{else}}
+                {{name}}
+            {{/if}}
+        </span>
+    </div>
+</template>

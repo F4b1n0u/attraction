@@ -1,3 +1,13 @@
+// Template.activityItem.onCreated(function() {
+//     var userId = this.data.owner;
+//     console.log(userId);
+//     var user = User.find({
+//         _id: userId
+//     });
+//     console.log(user);
+//     this.data.ownerName = user.username;
+// });
+
 Template.activityItem.helpers({
     isToDo: function() {
         return this.status.label == 'to-do'
@@ -6,7 +16,12 @@ Template.activityItem.helpers({
         return this.status.label == 'done'
     },
     isTheOwner: function() {
-        return this.owner._id === Meteor.userId();
+        return this.owner === Meteor.userId();
+    },
+    ownerName: function() {
+        return Users.findOne({
+            _id: this.owner
+        }).username;
     },
     description: function() {
         var $activity = $('#' + this._id + '.activity');
@@ -62,4 +77,4 @@ Template.activityItem.events({
                 return alert(error.reason);
         });
     }
-})
+});
