@@ -1,7 +1,8 @@
 <template name="board">
     <div class="board">
-        {{#each statuses}}
-            {{> statusItem}}
-        {{/each}}
+        {{#each statuses}} {{> statusItem}} {{/each}}
     </div>
+    {{> participantsList}}
+    {{> addParticipantModal}}
+    {{> fillProfileModal}}
 </template>

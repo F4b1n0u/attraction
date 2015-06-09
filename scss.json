@@ -1,5 +1,9 @@
 {
-  "includePaths": [
-    ".meteor/local/build/programs/server/assets/packages/francocatena_compass"
-  ]
+    "useIndex": true,
+    "indexFilePath": "client/stylesheets/semantic-style.scss",
+    "includePaths": [
+        ".meteor/local/build/programs/server/assets/packages/francocatena_compass",
+        ".meteor/local/build/programs/server/assets/packages/reywood_font-awesome-sass",
+        ".meteor/local/build/programs/server/assets/packages/yang2007chun_materialize-scss/bower_components/materialize/sass"
+    ]
 }

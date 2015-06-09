@@ -1,0 +1,18 @@
+<template name="addParticipantModal">
+    <div id="add-participant-modal" class="modal">
+        <i class="mdi-navigation-close modal-close"></i>
+        <div class="modal-content">
+            <h4>{{_ "add_participant_title"}}</h4>
+            <p>{{_ "add_participant_instruction"}}</p>
+            <div class="input-field">
+                <i class="mdi-communication-quick-contacts-mail prefix"></i>
+                <textarea id="profil-emails" class="materialize-textarea"></textarea>
+                <label for="profil-emails">{{_ "field_email"}}</label>
+            </div>
+            <button class="add-particupant-btn btn waves-effect waves-light">{{_ "add_participant_action"}}
+                <i class="mdi-social-group-add right"></i>
+            </button>
+        </div>
+        <p class="tips">{{_ "add_participant_tips"}}</p>
+    </div>
+</template>

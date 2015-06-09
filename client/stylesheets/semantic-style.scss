@@ -1,8 +1,19 @@
-@import './../../.meteor/local/build/programs/server/assets/packages/reywood_bootstrap3-sass/_bootstrap';
-@import './../../.meteor/local/build/programs/server/assets/packages/reywood_font-awesome-sass/_font-awesome';
 @import 'compass/reset';
 @import 'compass/css3';
-$action-width: 15em;
+
+@mixin calc($prop, $val) {
+    @each $pre in -webkit-, -moz- {
+        #{$prop}: $pre + calc(#{$val});
+    }
+    #{$prop}: calc(#{$val});
+}
+
+@import '_font-awesome';
+// Mixins
+@import "components/prefixer";
+@import "components/mixins";
+@import "components/color";
+$action-width: 9em;
 $action-height: 2em;
 $action-to-do-background-color: rgb(255, 158, 41);
 $action-in-progress-background-color: rgb(238, 180, 38);
@@ -14,282 +25,362 @@ $map-axis-selector-color: rgb(255, 158, 41);
 $map-axis-validator-color: rgb(35, 35, 35);
 $project-width: 80%;
 $project-height: 6em;
-body {
-    font-size: 10px;
-    background-color: $page-background-color;
-    font-family: Helvetica;
-    font-variant: normal;
-    font-weight: 100;
-    @include user-select(none);
+//custom theme
+$primary-color: rgb(255, 158, 41) !default;
+$primary-color-light: false !default;
+$primary-color-dark: false !default;
+@if not $primary-color-light {
+    $primary-color-light: lighten($primary-color, 15%);
 }
 
-.welcome {
-    font-size: 9em;
-    color: $title-color;
-    text-align: center;
+@if not $primary-color-dark {
+    $primary-color-dark: darken($primary-color, 15%);
+}
+
+$collapsible-header-color: $primary-color !default;
+$collapsible-border-color: $primary-color-dark !default;
+@import "components/variables";
+// Reset
+@import "components/normalize";
+// components
+@import "components/global";
+@import "components/icons-material-design";
+@import "components/grid";
+@import "components/navbar";
+@import "components/roboto";
+@import "components/typography";
+@import "components/cards";
+@import "components/toast";
+@import "components/tabs";
+@import "components/tooltip";
+@import "components/buttons";
+@import "components/dropdown";
+@import "components/waves";
+@import "components/modal";
+@import "components/collapsible";
+@import "components/materialbox";
+@import "components/form";
+@import "components/table_of_contents";
+@import "components/sideNav";
+@import "components/preloader";
+@import "components/slider";
+@import "components/date_picker/default.scss";
+@import "components/date_picker/default.date.scss";
+@import "components/date_picker/default.time.scss";
+
+input, // fix iOS contenteditable
+textarea,
+[contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+body {
+    font-family: Helvetica;
+    font-size: 20px;
+    font-variant: normal;
+    @include user-select(none);
+    background: $page-background-color;
+    main {
+        @extend .container;
+    }
+}
+
+.modal{
+    .tips {
+        font-size: 0.75em;
+    }
+    .modal-close {
+        font-size: 2em;
+        position: absolute;
+        top: -0.2em;
+        left: calc( 100% - 1em);
+    }
 }
 
 .profile {
     .map {
-        margin: 0 auto;
-        max-width: 1024px;
-        padding: 40px;
-        .map-label {
-            line-height: 60px;
-            font-size: 24px;
-            margin: 0;
-            color: $title-color;
-            font-family: monospace;
-        }
-        .map-wrap {
-            background: $action-in-progress-background-color url(bg.png);
-            padding: 1px;
-            border-radius: 3px;
-            position: relative;
-        }
+        .map-label {}
+        .map-wrap {}
         .map-inset {
-            padding-bottom: 50%;
-            background: url(world.png) 50% 50%;
-            -webkit-background-size: cover;
-            background-size: cover;
-            position: relative;
-            border-radius: 2px;
             .map-axis {
-                position: absolute;
                 &.x {
-                    top: 0;
-                    bottom: 0;
-                    width: 0;
-                    &.cursor {
-                        -webkit-transition: left 50ms ease-out;
-                        transition: left 50ms ease-out;
-                        border-left: 1px solid $map-axis-selector-color;
-                    }
-                    &.validator {
-                        -webkit-transition: left 100ms ease-out;
-                        transition: left 100ms ease-out;
-                        border-left: 1px solid $map-axis-validator-color;
-                    }
+                    &.cursor {}
+                    &.validator {}
                 }
                 &.y {
-                    left: 0;
-                    right: 0;
-                    height: 0;
-                    &.cursor {
-                        -webkit-transition: top 50ms ease-out;
-                        transition: top 50ms ease-out;
-                        border-top: 1px solid $map-axis-selector-color;
-                    }
-                    &.validator {
-                        -webkit-transition: top 100ms ease-out;
-                        transition: top 100ms ease-out;
-                        border-top: 1px solid $map-axis-validator-color;
-                    }
+                    &.cursor {}
+                    &.validator {}
                 }
             }
             & span {
-                width: 6px;
-                height: 6px;
-                margin: -3px 0 0 -3px;
-                background: $page-background-color;
-                position: absolute;
-                border-radius: 5px;
-                border: 1px solid $title-color;
-                &.selected {
-                    width: 10px;
-                    height: 10px;
-                }
+                &.selected {}
             }
         }
+    }
+
+}
+.participant-bubble {
+    @extend .valign-wrapper;
+    position: relative;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    color: white;
+    background-color: $page-background-color;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    text-transform: capitalize;
+    span {
+        @extend .center-align;
+        @extend .flow-text;
+        width: 100%;
+        font-size: 100%;
+    }
+    &::before {
+        content: '';
+        position: absolute;
+        right: -5.0%;
+        top: -5.0%;
+        width: 110.0%;
+        height: 110.0%;
+        border-radius: 50%;
+        background-color: white;
+        z-index: -1;
+    }
+    &.online::before {
+        background-color: green;
+    }
+    &.offline::before {
+        background-color: red;
     }
 }
 
 .projects-list {
-    color: $title-color;
-    font-variant: regular;
-    text-align: center;
     .title {
-        text-transform: capitalize;
-        font-size: 5em;
-        letter-spacing: 1em;
-        margin-right: -1em; // to remove the space on the last caracter
-        margin-top: 1em;
-        margin-bottom: 1em;
+        @extend .flow-text;
+        a {
+            @extend .center-align;
+            color: white;        }
     }
-    .project {
-        position: relative;
-        display: block;
-        width: $project-width;
-        height: $project-height;
-        margin: 2em auto;
-        @include border-radius(5px, 5px);
-        font-family: Helvetica;
-        font-variant: normal;
-        font-weight: 100;
-        color: $activity-text-color;
-        background: $action-in-progress-background-color;
-        background: -moz-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $action-in-progress-background-color), color-stop(100%, $action-done-background-color));
-        background: -webkit-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
-        background: -o-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
-        background: -ms-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
-        background: linear-gradient(to bottom, $action-in-progress-background-color 0%, $action-done-background-color 100%);
-        .name {
-            line-height: $project-height / 3;
-            text-transform: capitalize;
-            font-size: $project-height / 2;
-            .edited {
-                text-transform: capitalize;
-                text-align: center;
-                background-color: transparent;
-                outline: none;
-                resize: none;
-                overflow: auto;
-            }
-        }
-        .participants {
-            position: absolute;
-            left: 10px;
-            line-height: $project-height / 2;
-            font-size: 2em;
-            .add-participant {
-                @extend .fa;
-                @extend .fa-user-plus;
-            }
-            .bubble {
-                top: 2.5em;
-                left: -2em;
-                position: absolute;
-                padding: 0px;
-                background: #FFFFFF;
-                -webkit-border-radius: 20px;
-                -moz-border-radius: 20px;
-                border-radius: 20px;
-                z-index: 1;
-                &:after {
-                    content: '';
-                    position: absolute;
-                    border-style: solid;
-                    border-width: 0 12px 12px;
-                    border-color: #FFFFFF transparent;
-                    display: block;
-                    width: 0;
-                    z-index: 1;
-                    margin-left: -12px;
-                    top: -12px;
-                    left: 20%;
+    .projects-list {
+        @extend .row;
+        .project-wrapper {
+            @extend .col, .s6, .m6, .l6;
+            .project {
+                @extend .row;
+                @extend .z-depth-3;
+                position: relative;
+                vertical-align: top;
+                color: $activity-text-color;
+                border-style: solid;
+                border-color: white;
+                border-width: 0.1em;
+                margin: 1.5em 0em !important;
+                background: $action-in-progress-background-color;
+                .name {
+                    @extend .col, .s12, .m12, .l12;
+                    @extend .valign-wrapper;
+                    span {
+                        @extend .center-align;
+                        @extend .flow-text;
+                        width: 100%;
+                    }
                 }
-                &>input {
-                    line-height: normal;
-                    background-color: transparent;
-                    outline: none;
-                    resize: none;
-                    overflow: auto;
-                    border: none;
-                    margin: 0 10px;
-                    text-align: center;
+                .participants {
+                    @extend .col, .s6, .m6, .l6;
+                    .participant-bubble {
+                        @extend .participant-bubble;
+                        $participant-item-size: 2em;
+                        width: $participant-item-size;
+                        height: $participant-item-size;
+                        
+                        display: inline-block;
+                        border-width: 2px;
+                        border-style: solid;
+                        border-color: white;
+                        span {
+                            font-size: 100%;
+                            line-height: $participant-item-size;
+                            display: inherit;
+                        }
+                        &.online {
+                            border-color: green;
+                        }
+                        &.offline {
+                            border-color: red;
+                        }
+                        &::before {
+                            display: none;
+                        }
+                    }
+                }
+                .action {
+                    @extend .fa;
+                    position: absolute;
+                    right: 0.25em;
+                    color: white;
+                    text-shadow: -2px 0 $page-background-color, 0 2px $page-background-color, 2px 0 $page-background-color, 0 -2px $page-background-color;
+                    &.delete {
+                        @extend .fa-times;
+                        font-size: 1.25em;
+                        top: -.6em;
+                    }
+                    &.open {
+                        @extend .fa-table;
+                        font-size: 1.25em;
+                        bottom: -0.5em;
+                    }
                 }
             }
         }
     }
 }
 
+.participants-list {
+    right: 15px;
+    .modal-close {
+        font-size: 2em;
+        position: relative;
+        top: -0.2em;
+        left: calc( 100% - 1em);
+    }
+    .participant-bubble.add {
+        $participant-item-size: 2em;
+        width: $participant-item-size;
+        height: $participant-item-size;
+    }
+}
+
 .board {
+    @extend .row;
     .status-item {
-        @extend .row;
+        @extend .col, .s12, .m12, .l12;
         color: $title-color;
         font-variant: regular;
         text-align: center;
         .title {
+            @extend .center-align;
+            @extend .flow-text;
+            position: relative;
             text-transform: capitalize;
-            font-size: 5em;
             letter-spacing: 1em;
             margin-right: -1em; // to remove the space on the last caracter
             margin-top: 1em;
+            .follow {
+                @extend .fa, .fa-bookmark-o;
+                position: absolute;
+                z-index: 1;
+                top: -4px;
+                left: -1.5em;
+                color: rgba(255, 255, 255, 0.5);
+                &.active::after {
+                    position: absolute;
+                    left: 0;
+                    z-index: -1;
+                    content: ""; // don't delete because you will loose the value :s
+                    color: rgba(255, 0, 0, 0.5);
+                    &:hover {
+                        color: rgba(255, 0, 0, 1);
+                    }
+                }
+                &:hover {
+                    color: rgba(255, 255, 255, 1);
+                }
+            }
         }
         .detail {
-            font-size: 1.5em;
             letter-spacing: 0.5em;
             margin-right: -0.5em; // to remove the space on the last caracter
-            margin-top: 1em;
-            & .period {
-                margin-bottom: 1.5em;
+            margin-top: 0.5em;
+            .clock {
+                margin-top: -1.25em;
+                margin-bottom: 1em;
+                font-weight: 100;
+            }
+            .period {
+                margin-bottom: 2em;
             }
         }
         .activities-list {
+            @extend .row;
             width: 100%;
             text-align: center;
-            hr {
-                width: 75%;
-                margin-top: 3em;
-            }
-            .activity {
-                vertical-align: top;
-                display: inline-block;
-                position: relative;
-                width: $action-width;
-                @include border-radius(5px, 5px);
-                font-family: Helvetica;
-                font-variant: normal;
-                font-weight: 100;
-                color: $activity-text-color;
-                margin: 1.5em 1em;
-                &.detail {
-                    -webkit-transition: all 0.5s ease;
-                    transition: all 0.5s ease;
-                    position: absolute;
-                    z-index: 1;
-                    left: 0;
-                    right: 0;
-                    margin-left: auto;
-                    margin-right: auto;
-                    width: 50%;
-                    height: 50%;
-                }
-                .owner {
-                    text-align: center;
-                    vertical-align: middle;
-                    padding: 0.5em 0em;
-                    font-size: 2em;
-                }
-                .description {
-                    * {
-                        display: block;
-                        text-align: center;
-                        padding: 0.5em 0.5em;
-                        font-size: 1.5em;
-                        font-style: italic;
-                    }
-                    .edited {
-                        background-color: transparent;
-                        outline: none;
-                        resize: none;
-                        overflow: auto;
-                    }
-                }
-                .action {
-                    width: 0;
-                    height: $action-height;
-                    position: absolute;
-                    left: $action-width*0.03;
+            .activity-wrapper {
+                @extend .col, .s12, .m6, .l3;
+                margin: 1em, 1em;
+                .activity {
+                    @extend .z-depth-3;
+                    position: relative;
+                    display: inline-block;
+                    width: 100%;
+                    vertical-align: top;
+                    font-family: Helvetica;
+                    font-variant: normal;
+                    font-weight: 100;
+                    color: $activity-text-color;
+                    margin: 1.5em 1em 1.5em auto;
                     border-style: solid;
-                    -webkit-transition: border-width 0.1s ease;
-                    transition: border-width 0.1s ease;
-                    &:hover {
-                        -webkit-transition-duration: 0.2s;
-                        transition-duration: 0.2s;
-                    }
-                    &.backward {
-                        top: -$action-height;
-                        border-width: 0 $action-width/2.1 0 $action-width/2.1;
-                        &:hover {
-                            border-width: 0 $action-width/2.1 $action-height $action-width/2.1;
+                    border-color: white;
+                    border-width: 0.1em;
+                    .follow {
+                        @extend .z-depth-3;
+                        @extend .fa, .fa-bookmark-o;
+                        position: absolute;
+                        color: white;
+                        z-index: 1;
+                        top: -10px;
+                        left: .25em;
+                        font-size: 1.5em;
+                        &.active::after {
+                            position: absolute;
+                            left: 0;
+                            z-index: -1;
+                            content: "";
+                            color: red;
                         }
                     }
-                    &.forward {
-                        border-width: 0 $action-width/2.1 0 $action-width/2.1;
-                        &:hover {
-                            border-width: $action-height $action-width/2.1 0 $action-width/2.1;
+                    .participant-bubble {
+                        position: absolute;
+                        $participant-item-size: 2.5em;
+                        width: $participant-item-size;
+                        height: $participant-item-size;
+                        
+                        top: $participant-item-size * -2/3;
+                        @include calc(left, '50% - '$participant-item-size/2);
+                        background-size: $participant-item-size $participant-item-size;
+                    }
+
+                    .description {
+                        font-size: .75em;
+                        font-style: italic;
+                        text-align: center;
+                        overflow-wrap: break-word;
+                        margin-top: 1.5em;
+                        margin-bottom: .5em;
+                        margin-left: .5em;
+                        margin-right: .5em;
+                        &.editable {
+                            background-color: transparent;
+                            outline: none;
+                            resize: none;
+                            overflow: auto;
+                        }
+                    }
+                    .action {
+                        @extend .fa;
+                        position: absolute;
+                        right: 0.15em;
+                        font-size: 2.5em;
+                        color: white;
+                        text-shadow: -2px 0 $page-background-color, 0 2px $page-background-color, 2px 0 $page-background-color, 0 -2px $page-background-color;
+                        &.backward {
+                            @extend .fa-angle-up;
+                            top: -.6em;
+                        }
+                        &.forward {
+                            @extend .fa-angle-down;
+                            bottom: -0.5em;
                         }
                     }
                 }
@@ -303,9 +394,6 @@ body {
             background: -o-linear-gradient(top, $action-to-do-background-color 0%, $action-in-progress-background-color 100%);
             background: -ms-linear-gradient(top, $action-to-do-background-color 0%, $action-in-progress-background-color 100%);
             background: linear-gradient(to bottom, $action-to-do-background-color 0%, $action-in-progress-background-color 100%);
-            .action.forward {
-                border-color: $action-in-progress-background-color transparent transparent transparent;
-            }
         }
         &.status-in-progress .activity {
             background: $action-in-progress-background-color;
@@ -315,120 +403,12 @@ body {
             background: -o-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
             background: -ms-linear-gradient(top, $action-in-progress-background-color 0%, $action-done-background-color 100%);
             background: linear-gradient(to bottom, $action-in-progress-background-color 0%, $action-done-background-color 100%);
-            .action.backward {
-                border-color: transparent transparent $action-in-progress-background-color transparent;
-            }
-            .action.forward {
-                border-color: $action-done-background-color transparent transparent transparent;
-            }
         }
         &.status-done .activity {
             background-color: $action-done-background-color;
-            .action.backward {
-                border-color: transparent transparent $action-done-background-color transparent;
-            }
+        }
+        &::after {
+            @extend .divider;
         }
     }
-}
-
-.logo {
-    position: relative;
-    margin-top: 0.5em;
-    margin-right: auto;
-    margin-left: auto;
-    width: 504px;
-    &:before {
-        content: url(logo-center.png);
-        position: relative;
-        margin: auto;
-    }
-    & .circle {
-        position: absolute;
-        top: 0;
-        right: 0;
-        -webkit-animation-name: rotating;
-        -webkit-animation-timing-function: linear;
-        -webkit-animation-delay: initial;
-        -webkit-animation-iteration-count: infinite;
-        -webkit-animation-direction: initial;
-        -webkit-animation-fill-mode: initial;
-        -webkit-animation-play-state: initial;
-    }
-    & .circle.inner {
-        content: url(logo-sphere-inner.png);
-        -webkit-animation-duration: 1.5s;
-    }
-    & .circle.middle {
-        content: url(logo-sphere-middle.png);
-        -webkit-animation-duration: 2s;
-    }
-    & .circle.external {
-        content: url(logo-sphere-outer.png);
-        -webkit-animation-duration: 2.5s;
-    }
-    & .circle.external:before {}
-    @-webkit-keyframes rotating {
-        from {
-            -ms-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -webkit-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        to {
-            -ms-transform: rotate(-360deg);
-            -moz-transform: rotate(-360deg);
-            -webkit-transform: rotate(-360deg);
-            -o-transform: rotate(-360deg);
-            transform: rotate(-360deg);
-        }
-    }
-    @keyframes rotating {
-        from {
-            -ms-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -webkit-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
-        }
-        to {
-            -ms-transform: rotate(-360deg);
-            -moz-transform: rotate(-360deg);
-            -webkit-transform: rotate(-360deg);
-            -o-transform: rotate(-360deg);
-            transform: rotate(-360deg);
-        }
-    }
-    .rotating {
-        -webkit-animation: rotating 2s linear infinite;
-        -moz-animation: rotating 2s linear infinite;
-        -ms-animation: rotating 2s linear infinite;
-        -o-animation: rotating 2s linear infinite;
-        animation: rotating 2s linear infinite;
-    }
-}
-
-///////// OUT OF SEMANTIC ... thanks boostrap
-.nav {
-    font-size: 2em;
-}
-
-.tooltip.top .tooltip-arrow {
-    top: 0;
-    border-width: 0px 5px 5px 5px;
-    border-bottom-color: #000;
-}
-
-.slider .tooltip.top {
-    margin-top: 21px;
-}
-
-.slider-track-high {
-    -webkit-transition: all 50ms ease-out;
-    transition: all 100ms ease;
-}
-
-.slider-handle {
-    -webkit-transition: left 50ms ease-out;
-    transition: all 100ms ease;
 }

@@ -1,5 +1,5 @@
 Template.layout.onRendered(function() {
-    this.find('.inner')._uihooks = {
+    this.find('main')._uihooks = {
         insertElement: function(node, next) {
             $(node)
                 .hide()

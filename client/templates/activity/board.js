@@ -3,16 +3,12 @@ Template.board.onCreated(function() {
         var timeZone = Users.findOne().timeZone;
         Session.set('timeZone', timeZone);
     }
+
+    Session.set('projectId', this.data.projectId);
 });
 
-Template.board.helpers({
-    statuses: function() {
-        return [{
-            status: 'to-do'
-        }, {
-            status: 'in-progress'
-        }, {
-            status: 'done'
-        }];
-    },
+Template.board.events({
+    'click .participant-bubble.add.from-board': function(evt, tmpl) {
+        $('#add-participant-modal').attr('data-project-id', tmpl.data.projectId);
+    }
 });

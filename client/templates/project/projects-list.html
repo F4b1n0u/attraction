@@ -1,9 +1,13 @@
 <template name="projectsList">
     <div class="projects-list">
-    	<h1 class="title">Projects</h1>
-    	<div class=""></div>
-        {{#each projects}}
-            {{> projectItem}}
-        {{/each}}
+        <h4 class="title"><a class="waves-effect waves-teal btn-flat">{{projectCount}}<i class="mdi-content-add right"></i></a></h4>
+        <div class="projects-list">
+            {{#each projects}}
+            <div class="project-wrapper">
+                {{> projectItem}}
+            </div>
+            {{/each}}
+        </div>
+        {{> addParticipantModal}}
     </div>
 </template>

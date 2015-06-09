@@ -7,33 +7,16 @@ Meteor.publish('projects', function(userId) {
 });
 
 Meteor.publish('participation', function(projectId) {
-    var participantIds = Projects.getParticipation(projectId).fetch();
-    if (participantIds.length) {
-        participantIds = participantIds[0].participants
-        var participants = Users.find({
-            _id: {
-                $in: participantIds
-            }
-        }, {
-            fields: {
-                '_id': true,
-                'username': true,
-                'timeZone': true,
-                'emails': true
-            }
-        });
-
-        return participants;
-    }
+    return Projects.getParticipants(projectId);
 });
 
 Meteor.publish('directory', function() {
-    var directory = Users.find({}, {
+    return Users.find({}, {
         fields: {
-            '_id': true,
-            'emails': true
+            '_id': 1,
+            'username': 1,
+            'emails': 1,
+            'status': 1
         }
     });
-
-    return directory;
 });

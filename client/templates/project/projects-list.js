@@ -1,25 +1,43 @@
 Template.projectsList.helpers({
-    projects: function() {
-        return Projects.getByParticipation(Meteor.userId());
+    projectCount: function() {
+        var count = this.projects.fetch().length;
+        if (count) {
+            return TAPi18n.__("projects_count", {
+                count: count
+            });
+        } else {
+            return TAPi18n.__("no_projects");
+        }
     }
 });
 
 Template.projectsList.onRendered(function() {
-    var projectsList = this.find('.projects-list');
-    projectsList._uihooks = {
+    var $projectsList = this.find('.projects-list');
+    // var $collapsible = $('.collapsible');
+    $projectsList._uihooks = {
         insertElement: function(node, next) {
-
-            var animation = 'fadeIn'
+            var animation = 'fadeInDown'
             $(node)
                 .addClass('animated')
                 .addClass(animation)
                 .insertBefore(next);
 
+            // $collapsible
+            //     .collapsible()
+            //     .find('.active')
+            //     .removeClass('active')
+            //     .find('.collapsible-body')
+            //     .hide();
+
+            $(node)
+                .addClass('active')
+                .show();
+
             $(node).one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function() {
                 $(node)
                     .removeClass('animated')
                     .removeClass(animation)
-                    .insertBefore(next);
+                    .addClass('active');
             });
         },
         removeElement: function(node, next) {
@@ -36,7 +54,7 @@ Template.projectsList.onRendered(function() {
 });
 
 Template.projectsList.events({
-    'dblclick .title': function(evt, tmpl) {
+    'click .title': function(evt, tmpl) {
         evt.preventDefault();
         var userId = Meteor.userId();
         if (userId) {

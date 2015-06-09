@@ -1,8 +1,9 @@
 <template name="activitiesList">
     <div class="activities-list">
         {{#each activities}}
-            {{> activityItem}}
+        	<div class="activity-wrapper">
+            	{{> activityItem}}
+            </div>
         {{/each}}
-        <hr>
     </div>
 </template>

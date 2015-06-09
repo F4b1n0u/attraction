@@ -8,7 +8,8 @@ Template.activitiesList.onRendered(function() {
     var activitiesList = this.find('.activities-list');
     activitiesList._uihooks = {
         insertElement: function(node, next) {
-            var activityId = $(node).attr('id');
+            var $activity = $(node).find('.activity');
+            var activityId = $activity.attr('id');
             var activity = Activities.findOne({
                 _id: activityId
             });
@@ -17,19 +18,21 @@ Template.activitiesList.onRendered(function() {
 
             var animationName = 'fadeIn';
 
-            $(node).addClass('animated');
-            $(node).addClass(animationName).insertBefore(next);
+            $activity.addClass('animated');
+            $activity.addClass(animationName);
+            $(node).insertBefore(next);
 
-            $(node).one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function() {
-                $(node).removeClass('animated');
-                $(node).removeClass(animationName).insertBefore(next);
+            $activity.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function() {
+                $activity.removeClass('animated');
+                $activity.removeClass(animationName);
             });
         },
         moveElement: function(node, next) {
             console.log('moveElement');
         },
         removeElement: function(node, next) {
-            var activityId = $(node).attr('id');
+            var $activity = $(node).find('.activity');
+            var activityId = $activity.attr('id');
             var activity = Activities.findOne({
                 _id: activityId
             });
@@ -59,7 +62,6 @@ Template.activitiesList.helpers({
         var projectId = Router.current().params._id;
         var status = this.status;
         var period = Session.get(this.status + '-period')
-        console.log(projectId, status, period);
         return Activities.getByStatusAndPeriod(projectId, this.status, period);
     }
 });

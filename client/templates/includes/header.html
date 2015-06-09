@@ -1,20 +1,13 @@
 <template name="header">
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="{{pathFor 'projectsList'}}">Attraction</a>
-            {{#if userConnected}}
-                <a class="navbar-brand" href="{{pathFor 'profile'}}">Profile</a>
-            {{/if}}
-        </div>
-        <div class="collapse navbar-collapse" id="navigation">
-            <ul class="nav navbar-nav navbar-right">
-                {{> loginButtons}}
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo">Attraction</a>
+            <a href="/" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+            <ul class="right hide-on-med-and-down">
+                {{> atNavButton}}
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                {{> atNavButton}}
             </ul>
         </div>
     </nav>

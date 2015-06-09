@@ -1,0 +1,17 @@
+<template name="fillProfileModal">
+    <div id="fill-profile-modal" class="modal">
+        <div class="modal-content">
+            <h4>{{_ "fill_profile_title"}}</h4>
+            <p>{{_ "fill_profile_instruction"}}</p>
+            <div class="input-field">
+                <i class="mdi-action-account-circle prefix"></i>
+                <input id="username" type="text" value="{{username}}">
+                <label for="username">{{_ "field_username"}}</label>
+            </div>
+
+            <button class="validate-profile-btn btn waves-effect waves-light">{{_ "fill_profile_action"}}</button>
+
+            <p class="tips">{{_ "fill_profile_tips"}}</p>
+        </div>
+    </div>
+</template>

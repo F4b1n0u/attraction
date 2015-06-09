@@ -1,0 +1,7 @@
+<template name="participantsList">
+    <div class="participants-list">
+        {{#each participants}} {{> participantItem}} {{/each}}
+
+        <div class="participant-bubble add from-board" href="#add-participant-modal"><span>{{_ "add_participant_label"}}</span></div>
+    </div>
+</template>

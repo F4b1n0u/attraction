@@ -1,0 +1,25 @@
+{
+    "no_projects": "no project",
+    "projects_count": "__count__ project",
+    "projects_count_plural": "__count__ projects",
+    "participants_count": "__count__ participant",
+    "participants_count_plural": "__count__ participants",
+    "participants_new": "add participant",
+    "board": "board",
+    "delete": "delete",
+    "last_modification": "last modification",
+    // add participant modal
+    "add_participant_label": "add",
+    "add_participant_title": "add a participant",
+    "add_participant_instruction": "invite a participant to join you on this project, to do that, fill the field with the desired user's e-mail address",
+    "add_participant_tips": "you can add several participants in the same time, to do that put an e-mail per line",
+    "add_participant_action": "add",
+    // fill profile modal
+    "fill_profile_title": "profile setup",
+    "fill_profile_instruction": "you can define a username (compulsory), a avatar (optional), and a location (automatic)",
+    "fill_profile_tips": "you can type two names",
+    "fill_profile_action": "validate",
+    // Forms
+    "field_email": "e-mail",
+    "field_username":"username"
+}

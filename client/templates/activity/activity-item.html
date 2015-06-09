@@ -1,21 +1,18 @@
 <template name="activityItem">
     <div id="{{_id}}" class="activity">
+        <!-- <i class="follow"></i> -->
+        {{> participantBubble owner}}
         {{#if isTheOwner}}
-            {{#unless isToDo}}
-            	<div class="action backward"></div>
-            {{/unless}}
+            <div class="description editable" contenteditable="true">{{description}}</div>
+        {{else}}
+            <div class="description">{{description}}</div>
         {{/if}}
-        <div class="owner">{{ownerName}}</div>
-        <div class="description">
-            {{#if isTheOwner}}
-                {{> editableText textarea=true class="editable" inputClass="edited" collection="activities" field="description" eventType="dblclick" placeholder="description"}}
-            {{else}}
-                <span>{{description}}</span>
-            {{/if}}
-        </div>
         {{#if isTheOwner}}
             {{#unless isDone}}
             	<div class="action forward"></div>
+            {{/unless}}
+            {{#unless isToDo}}
+                <div class="action backward"></div>
             {{/unless}}
         {{/if}}
     </div>
