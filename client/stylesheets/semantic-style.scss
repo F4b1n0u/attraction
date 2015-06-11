@@ -148,8 +148,11 @@ body {
         background-color: white;
         z-index: -1;
     }
-    &.online::before {
+    &.present::before {
         background-color: green;
+    }
+    &.online::before {
+        background-color: orange;
     }
     &.offline::before {
         background-color: red;
@@ -204,8 +207,11 @@ body {
                             line-height: $participant-item-size;
                             display: inherit;
                         }
-                        &.online {
+                        &.present {
                             border-color: green;
+                        }
+                        &.online {
+                            border-color: orange;
                         }
                         &.offline {
                             border-color: red;

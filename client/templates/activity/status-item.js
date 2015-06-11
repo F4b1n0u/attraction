@@ -8,7 +8,7 @@ Template.statusItem.helpers({
 });
 
 Template.statusItem.events({
-    'dblclick .title': function(evt, tmpl) {
+    'click .title': function(evt, tmpl) {
         evt.preventDefault();
 
         if (Meteor.user()) {

@@ -60,7 +60,7 @@ Template.addParticipantModal.events({
                         }
                     });
                     $profilEmails.val('');
-                    modal.closeModal();
+                    $modal.closeModal();
                 } else {
                     // TODO display no user with this emails :(
                 }

@@ -2,13 +2,14 @@ Template.fillProfileModal.onRendered(function() {
     var $validateProfileBtn = $('.validate-profile-btn');
     var $fillProfileModal = $('#fill-profile-modal');
 
-    $fillProfileModal.leanModal({
-        dismissible: false
+    $fillProfileModal.leanModal();
+
+    this.autorun(function() {
+        if (Meteor.user() && !Meteor.user().username) {
+            $fillProfileModal.openModal();
+        }
     });
 
-    if (!Meteor.user().username) {
-        $fillProfileModal.openModal();
-    }
     $validateProfileBtn.addClass('disabled');
 
     $('#lean-overlay').dismissible = false;
@@ -16,7 +17,9 @@ Template.fillProfileModal.onRendered(function() {
 
 Template.fillProfileModal.helpers({
     username: function() {
-        return Meteor.user().username;
+        if (Meteor.user()) {
+            return Meteor.user().username;
+        }
     }
 });
 

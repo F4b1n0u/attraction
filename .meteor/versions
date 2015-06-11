@@ -60,6 +60,7 @@ iron:location@1.0.7
 iron:middleware-stack@1.0.7
 iron:router@1.0.7
 iron:url@1.0.7
+jaywon:meteor-node-uuid@1.0.1
 jparker:crypto-core@0.1.0
 jparker:crypto-md5@0.1.1
 jquery@1.11.3_2
@@ -82,6 +83,7 @@ mongo@1.1.0
 mongo-livedata@1.0.8
 mrt:moment@2.8.1
 mrt:moment-timezone@0.2.1
+mrt:q@1.0.1
 natestrauser:animate-css@3.2.6
 npm-bcrypt@0.7.8_2
 oauth@1.1.4

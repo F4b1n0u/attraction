@@ -24,7 +24,17 @@ Template.participantBubble.helpers({
         }
         return initials;
     },
-    isOnline: function() {
-        return this.status.online;
+    status: function() {
+        var status;
+        if (this.status.online) {
+            if (this.status.isReachable) {
+                status = 'present';
+            } else {
+                status = 'online';
+            }
+        } else {
+            status = 'offline';
+        }
+        return status;
     }
 });

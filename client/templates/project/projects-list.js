@@ -1,3 +1,7 @@
+Template.projectsList.onCreated(function() {
+    Users.setReachable(Meteor.userId(), false);
+});
+
 Template.projectsList.helpers({
     projectCount: function() {
         var count = this.projects.fetch().length;
